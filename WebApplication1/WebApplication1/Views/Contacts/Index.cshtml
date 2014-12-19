@@ -1,0 +1,41 @@
+﻿@using System.Net.NetworkInformation
+@model IEnumerable<WebApplication1.Models.ContactViewModel>
+
+@{
+    ViewBag.Title = "Contact List";
+}
+
+<h2>Contact List</h2>
+    <p>
+        @using (Html.BeginForm())
+        {
+        <p>
+
+            <input type="submit" value="Search" class="btn btn-primary"> &nbsp;@Html.TextBox("search")
+
+            <br />
+            <h4>@Html.ActionLink("Add New Contact", "Create")</h4>
+        </p>
+        }
+        </p>
+<table class="table">
+        <tr >
+            <th colspan="4">
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+       </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("View", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>
