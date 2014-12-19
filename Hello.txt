@@ -4,6 +4,10 @@ git-fucking-hub!
 
 by ginno
 
+<<<<<<< .merge_file_a07652
 tracker mag edit ka rin. hahaha lol
 
 push nyo na yan
+=======
+tracker mag edit ka rin. hahaha lol
+>>>>>>> .merge_file_a03252
