@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ContactInfosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContactNumber">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonalInfo_ID" Type="int" Nullable="false" />
+    <Property Name="SelectedContactType" Type="nvarchar(max)" />
+    <Property Name="mobile" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="PersonalInfo_ID1" Type="int" />
+  </EntityType>
+  <EntityType Name="EmailAdd">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonalInfo_ID" Type="int" Nullable="false" />
+    <Property Name="Eadd" Type="nvarchar" MaxLength="50" />
+    <Property Name="PersonalInfo_ID1" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonalInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="middleName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="dateSaved" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_ContactNumber_dbo_PersonalInfo_PersonalInfo_ID1">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="ContactNumber" Type="Self.ContactNumber" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ContactNumber">
+        <PropertyRef Name="PersonalInfo_ID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_EmailAdd_dbo_PersonalInfo_PersonalInfo_ID1">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="EmailAdd" Type="Self.EmailAdd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmailAdd">
+        <PropertyRef Name="PersonalInfo_ID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ContactInfosModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContactNumber" EntityType="Self.ContactNumber" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailAdd" EntityType="Self.EmailAdd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_ContactNumber_dbo_PersonalInfo_PersonalInfo_ID1" Association="Self.FK_dbo_ContactNumber_dbo_PersonalInfo_PersonalInfo_ID1">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="ContactNumber" EntitySet="ContactNumber" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_EmailAdd_dbo_PersonalInfo_PersonalInfo_ID1" Association="Self.FK_dbo_EmailAdd_dbo_PersonalInfo_PersonalInfo_ID1">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="EmailAdd" EntitySet="EmailAdd" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

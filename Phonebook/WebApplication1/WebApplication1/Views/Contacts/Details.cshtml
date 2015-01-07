@@ -1,0 +1,103 @@
+﻿@model WebApplication1.Models.PersonalInfo
+@{
+    ViewBag.Title = "Details";
+}
+<h4>Contact Details</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.middleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.middleName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+
+
+        <dd>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Contact Type</th>
+                    <th>Contact Number</th>
+                </tr>
+
+                @foreach (var item in Model.ContactNumbers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SelectedContactType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mobile)
+                        </td>
+                    </tr>
+                }
+            </table>
+
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Email Address</th>
+                </tr>
+
+                @foreach (var item in Model.EmailAdds)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Eadd)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
