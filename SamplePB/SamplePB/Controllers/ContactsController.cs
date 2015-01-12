@@ -90,9 +90,9 @@ namespace SamplePB.Controllers
 
         public ActionResult ShowAllContacts(PersonViewModel model)
         {
+            
             var obj = new DatabaseOperations();
             model.StoreAllData = obj.SelectAllContacts();
-
             return View(model);
         }
 
@@ -124,9 +124,8 @@ namespace SamplePB.Controllers
         public ActionResult EditContact(PersonViewModel model)
         {
             var obj = new DatabaseOperations();
-            string result = obj.UpdateContactPerson(model);
-            ViewData["updateResult"] = result;
-            return View(model);
+            obj.UpdateContactPerson(model);
+            return RedirectToAction("ShowAllContacts", "Contacts");
         }
 
         [HttpGet]
@@ -181,8 +180,7 @@ namespace SamplePB.Controllers
             if (ModelState.IsValid)
             {
                 var obj = new DatabaseOperations();
-                string result = obj.AddEmails(eModel);
-                ViewData["result"] = result;
+                obj.AddEmails(eModel);
                 ModelState.Clear();
                 return RedirectToAction("ShowAllContacts", "Contacts");
 
@@ -190,7 +188,7 @@ namespace SamplePB.Controllers
             else
             {
                 ModelState.AddModelError("", "Error saving.");
-                return View();
+                return RedirectToAction("ShowAllContacts", "Contacts");
             }
         }
 
@@ -246,14 +244,11 @@ namespace SamplePB.Controllers
         //}
         public ActionResult InsertPersonContactNumber(ContactNumbersViewModel cModel)
         {
-
-            
             if (ModelState.IsValid)
             {
                
                 var obj = new DatabaseOperations();
-                string result = obj.AddContactNumbers(cModel);
-                ViewData["result"] = result;
+                obj.AddContactNumbers(cModel);
                 ModelState.Clear();
                 return RedirectToAction("ShowAllContacts", "Contacts");
 
@@ -271,11 +266,14 @@ namespace SamplePB.Controllers
 
             DataSet ds = objDb.SelectByContactId(id);
 
-            var model = new ContactNumbersViewModel();
+            var model = new ContactNumbersViewModel
+            {
+                ContactId = Convert.ToInt32(ds.Tables[0].Rows[0]["ID"].ToString()),
+                PersonId = Convert.ToInt32(ds.Tables[0].Rows[0]["PersonID"].ToString()),
+                SelectedContactType = ds.Tables[0].Rows[0]["SelectedContactType"].ToString(),
+                ContactNumber = ds.Tables[0].Rows[0]["ContactNumber"].ToString()
+            };
 
-            model.ContactId = Convert.ToInt32(ds.Tables[0].Rows[0]["ID"].ToString());
-            model.SelectedContactType = ds.Tables[0].Rows[0]["SelectedContactType"].ToString();
-            model.ContactNumber = ds.Tables[0].Rows[0]["ContactNumber"].ToString();
             return View(model);
         }
 
@@ -306,7 +304,6 @@ namespace SamplePB.Controllers
         {
             var obj = new DatabaseOperations();
             obj.DeleteContactNumber(model.ContactId);
-
             return RedirectToAction("ShowAllContacts", "Contacts");
         }
 
@@ -329,9 +326,8 @@ namespace SamplePB.Controllers
         public ActionResult EditEmail(EmailsViewModel model)
         {
             var obj = new DatabaseOperations();
-            string result = obj.UpdateEmail(model);
-            ViewData["updateEmailResult"] = result;
-            return View(model);
+            obj.UpdateEmail(model);
+            return RedirectToAction("ShowAllContacts", "Contacts");
         }
 
         [HttpGet]
@@ -352,9 +348,8 @@ namespace SamplePB.Controllers
         {
             var obj = new DatabaseOperations();
             obj.DeleteEmail(model.EmailId);
-
             return RedirectToAction("ShowAllContacts", "Contacts");
         }
-
+       
     }
 }

@@ -17,12 +17,15 @@
             @Html.DisplayFor(model => model.EmailId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Emails)
+            Email Address
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Emails)
+        </dd>
 
     </dl>
 
-    <div class="form-actions no-color">
+    <div >
         <input type="submit" name="Delete" value="Delete" class="btn btn-default" /> 
         @Html.ActionLink("Back", "ShowContactDetails")
     </div>

@@ -22,27 +22,9 @@
             <th>Contact number</th>
             <td>@Html.TextBoxFor(m => m.ContactNumber)</td>
         </tr>
-
         <tr>
             <th><input id="save" type="submit" value="Save" /></th>
 
         </tr>
     </table>
-
-}
-@{
-
-    if (ViewData["result"] != null)
-    {
-
-        ViewData["result"] = null;
-
-        <script type="text/javascript" language="javascript">
-
-            alert("Data saved Successfully");
-
-        </script>
-
-    }
-
 }

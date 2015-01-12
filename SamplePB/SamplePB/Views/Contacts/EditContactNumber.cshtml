@@ -12,10 +12,19 @@
 <table class="table">
 
     <tr>
+        @Html.HiddenFor(m => m.ContactId)
         <th>ID</th>
         <td colspan="2"> @Html.TextBoxFor(m => m.ContactId)</td>
-    
+        
+    </tr>
     <tr>
+        @Html.HiddenFor(m => m.PersonId)
+        <th>Person ID</th>
+        <td colspan="2"> @Html.TextBoxFor(m => m.PersonId)</td>
+        
+    </tr>
+    <tr>
+<tr>
         <th>Contact Type</th>
         <td> @Html.TextBoxFor(m => m.SelectedContactType)</td>
     </tr>

@@ -18,8 +18,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactPersonAddition", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactPersonAddition", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@LastName", model.LastName);
                 cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                 cmd.Parameters.AddWithValue("@MiddleName", model.MiddleName);
@@ -36,8 +35,8 @@ namespace SamplePB.DAL
 
                 return result;
             }
-            finally { 
-                con.Close();
+            finally {
+                if (con != null) con.Close();
             }
         }
 
@@ -48,8 +47,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactPersonInfoUpdate", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactPersonInfoUpdate", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", model.PersonId);
                 cmd.Parameters.AddWithValue("@LastName", model.LastName);
                 cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
@@ -74,12 +72,10 @@ namespace SamplePB.DAL
         {
             SqlConnection con = null;
             string result = "";
-            //int bla=4;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactDeletion", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactDeletion", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", personId);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
@@ -93,22 +89,19 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
         public DataSet SelectAllContacts()
         {
             SqlConnection con = null;
-            string result = "";
             DataSet ds = null;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactList", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactList", con) {CommandType = CommandType.StoredProcedure};
                 con.Open();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
+                var da = new SqlDataAdapter {SelectCommand = cmd};
                 ds = new DataSet();
                 da.Fill(ds);
                 return ds;
@@ -121,14 +114,13 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
 
         public DataSet SelectById(int id)
         {
             SqlConnection con = null;
-            string result = "";
             DataSet ds = null;
             
             try
@@ -158,7 +150,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
         public string AddEmails(EmailsViewModel eModel)
@@ -168,8 +160,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspEmailAddition", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspEmailAddition", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", eModel.PersonId);
                 cmd.Parameters.AddWithValue("@EmailAddress", eModel.Emails);
                 con.Open();
@@ -214,25 +205,22 @@ namespace SamplePB.DAL
             }
         }
 
-        //practice ni tracker
-        public DataSet SearchContact()
+        public DataSet SearchContact(PersonViewModel model)
         {
             SqlConnection con = null;
-            string result = "";
+            const string searcher = "";
             DataSet ds = null;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactPersonSearch", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactPersonSearch", con) {CommandType = CommandType.StoredProcedure};
+                cmd.Parameters.AddWithValue("@searcher", searcher);
                 con.Open();
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
+                var da = new SqlDataAdapter {SelectCommand = cmd};
                 ds = new DataSet();
                 da.Fill(ds);
                 return ds;
-
-            }
+                }
             catch
             {
 
@@ -244,19 +232,15 @@ namespace SamplePB.DAL
             }
         }
 
-        //dulo ng practice
-
-        //ginno
+       
         public string ViewContactDetails(int personId)
         {
             SqlConnection con = null;
             string result = "";
-            //int bla=4;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactSearching", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactSearching", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", personId);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
@@ -292,16 +276,12 @@ namespace SamplePB.DAL
                 cmd.Parameters.AddWithValue("@ContactID", id);
                 con.Open();
                 da.SelectCommand = cmd;
-                //da.TableMappings.Add("Table", "tblPerson");
-                //da.TableMappings.Add("Table1", "tblContactNumbers");
-                //da.TableMappings.Add("Table2", "tblEmails");
                 da.Fill(ds);
                 return ds;
 
             }
             catch
             {
-
                 return ds;
             }
             finally
@@ -311,22 +291,25 @@ namespace SamplePB.DAL
         }
         public string UpdateContactNumber(ContactNumbersViewModel model)
         {
-            string result = "";
+            var result = "";
             try
             {
                 var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
                 var cmd = new SqlCommand("uspContactNumberUpdate", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@ContactID", model.ContactId);
+                cmd.Parameters.AddWithValue("@PersonID", model.PersonId);
                 cmd.Parameters.AddWithValue("@SelectedContactType", model.SelectedContactType);
                 cmd.Parameters.AddWithValue("@ContactNumber", model.ContactNumber);
+                con.Open();
                 result = cmd.ExecuteScalar().ToString();
+                
                 return result;
 
             }
             catch
             {
 
-                return result = "";
+                return result;
             }
 
         
@@ -335,7 +318,6 @@ namespace SamplePB.DAL
         {
             SqlConnection con = null;
             string result = "";
-            //int bla=14;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
@@ -360,7 +342,6 @@ namespace SamplePB.DAL
         public DataSet SelectByEmailId(int id)
         {
             SqlConnection con = null;
-            string result = "";
             DataSet ds = null;
 
             try
@@ -399,14 +380,16 @@ namespace SamplePB.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@EmailID", model.EmailId);
                 cmd.Parameters.AddWithValue("@EmailAddress", model.Emails);
+                con.Open();
                 result = cmd.ExecuteScalar().ToString();
+                
                 return result;
 
             }
             catch
             {
 
-                return result = "";
+                return result;
             }
 
 
@@ -415,7 +398,6 @@ namespace SamplePB.DAL
         {
             SqlConnection con = null;
             string result = "";
-            //int bla=14;
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());

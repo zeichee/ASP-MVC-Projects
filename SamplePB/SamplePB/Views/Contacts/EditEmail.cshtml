@@ -6,3 +6,23 @@
 
 <h2>EditEmail</h2>
 
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+            <td>@Html.DisplayFor(m => m.EmailId)</td>
+        </tr>
+        <tr>
+            <th>
+                Email Address
+            </th>
+            <td>@Html.TextBoxFor(m => m.Emails)</td>
+        </tr>
+        
+    </table>
+    <input type="submit" class="btn btn-success" value="Save"/>
+    
+}
