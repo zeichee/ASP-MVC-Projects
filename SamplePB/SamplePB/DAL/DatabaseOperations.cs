@@ -136,31 +136,14 @@ namespace SamplePB.DAL
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
                 var cmd = new SqlCommand("uspContactShowDetail", con);
                 ds = new DataSet();
-                //var dataTableForContactNumber = new DataTable("tblContactNumbers");
-                //var dataTableForEmail = new DataTable("tblEmails");
-                //var dataTableForContactPerson = new DataTable("tblPerson");
                 var da = new SqlDataAdapter();
-
-                //ds.Tables.Add("tblPerson");
-                //ds.Tables.Add("tblContactNumbers");
-                //ds.Tables.Add("tblEmails");
-
+            
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@PersonID", id);
-                //cmd.Parameters.AddWithValue("@LastName", model.LastName);
-                //cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
-                //cmd.Parameters.AddWithValue("@MiddleName",model.MiddleName);
-                //cmd.Parameters.AddWithValue("@BirthDate",model.BirthDate);
-                //cmd.Parameters.AddWithValue("@HomeAddress",model.HomeAddress);
-                //cmd.Parameters.AddWithValue("@Company", model.Company);
                 con.Open();
                 
                 da.SelectCommand = cmd;
-
-                //da.Fill(ds.Tables["tblPerson"]);
-                //da.Fill(ds.Tables["tblContactNumbers"]);
-                //da.Fill(ds.Tables["tblEmails"]);
-
+                
                 da.TableMappings.Add("Table", "tblPerson");
                 da.TableMappings.Add("Table1", "tblContactNumbers");
                 da.TableMappings.Add("Table2", "tblEmails");
@@ -201,7 +184,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
         public string AddContactNumbers(ContactNumbersViewModel cModel)
@@ -211,8 +194,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactAddition", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactAddition", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", cModel.PersonId);
                 cmd.Parameters.AddWithValue("@SelectedContactType", cModel.SelectedContactType);
                 cmd.Parameters.AddWithValue("@ContactNumber", cModel.ContactNumber);
@@ -228,7 +210,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
 
@@ -258,7 +240,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
 
@@ -288,7 +270,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
 
         }
@@ -324,7 +306,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
         public string UpdateContactNumber(ContactNumbersViewModel model)
@@ -333,8 +315,7 @@ namespace SamplePB.DAL
             try
             {
                 var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                var cmd = new SqlCommand("uspContactNumberUpdate", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactNumberUpdate", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@ContactID", model.ContactId);
                 cmd.Parameters.AddWithValue("@SelectedContactType", model.SelectedContactType);
                 cmd.Parameters.AddWithValue("@ContactNumber", model.ContactNumber);
@@ -358,8 +339,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspContactNumberDeletion", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspContactNumberDeletion", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@ContactID", contactId);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
@@ -373,7 +353,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
 
@@ -395,9 +375,6 @@ namespace SamplePB.DAL
                 cmd.Parameters.AddWithValue("@EmailID", id);
                 con.Open();
                 da.SelectCommand = cmd;
-                //da.TableMappings.Add("Table", "tblPerson");
-                //da.TableMappings.Add("Table1", "tblContactNumbers");
-                //da.TableMappings.Add("Table2", "tblEmails");
                 da.Fill(ds);
                 return ds;
 
@@ -409,7 +386,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
         public string UpdateEmail(EmailsViewModel model)
@@ -442,8 +419,7 @@ namespace SamplePB.DAL
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                SqlCommand cmd = new SqlCommand("uspEmailDeletion", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspEmailDeletion", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@EmailID", emailId);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
@@ -457,7 +433,7 @@ namespace SamplePB.DAL
             }
             finally
             {
-                con.Close();
+                if (con != null) con.Close();
             }
         }
     }

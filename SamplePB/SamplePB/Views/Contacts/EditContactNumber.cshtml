@@ -6,26 +6,31 @@
 
 <h2>EditContactNumber</h2>
 
-@using (Html.BeginForm())
+
+
+<table class="table">
+    @using (Html.BeginForm())
 {
-
-    <table class="table">
+    <tr>
+        <th>ID</th>
+        <td colspan="2"> @Html.TextBoxFor(m => m.ContactId)</td>
+    </tr>
         <tr>
-            <th>ID</th>
-            <td colspan="2"> @Html.TextBoxFor(m => m.ContactId)</td>
-        </tr>
-        <tr>
-            <th>Last Name</th>
-            <td> @Html.TextBoxFor(m => m.SelectedContactType)</td>
-        </tr>
-        <tr>
-            <th>First Name</th>
-            <td> @Html.TextBoxFor(m => m.ContactNumber)</td>
-        </tr>
+        <th>ID</th>
+        <td colspan="2"> @Html.TextBoxFor(m => m.PersonId)</td>
+    </tr>
+    <tr>
+        <th>Contact Type</th>
+        <td> @Html.TextBoxFor(m => m.SelectedContactType)</td>
+    </tr>
+    <tr>
+        <th>Contact Number</th>
+        <td> @Html.TextBoxFor(m => m.ContactNumber)</td>
+    </tr>
    
-        <tr>
-            <th colspan="2"><input type="submit" value="Save" class="btn btn-success" /></th>
-        </tr>
-    </table>
+    <tr>
+        <th colspan="2"><input type="submit" value="Save" class="btn btn-success" /></th>
+    </tr>
+    }
+</table>
 
-}

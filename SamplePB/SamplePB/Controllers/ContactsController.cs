@@ -264,7 +264,7 @@ namespace SamplePB.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
         public ActionResult EditContactNumber(int id)
         {
             var objDb = new DatabaseOperations();
@@ -275,7 +275,6 @@ namespace SamplePB.Controllers
 
             model.ContactId = Convert.ToInt32(ds.Tables[0].Rows[0]["ID"].ToString());
             model.SelectedContactType = ds.Tables[0].Rows[0]["SelectedContactType"].ToString();
-
             model.ContactNumber = ds.Tables[0].Rows[0]["ContactNumber"].ToString();
             return View(model);
         }
@@ -291,9 +290,9 @@ namespace SamplePB.Controllers
         [HttpGet]
         public ActionResult DeleteContactNumber(int id)
         {
-            var objDB = new DatabaseOperations();
+            var objDb = new DatabaseOperations();
 
-            DataSet ds = objDB.SelectByContactId(id);
+            var ds = objDb.SelectByContactId(id);
 
             var model = new ContactNumbersViewModel();
 
