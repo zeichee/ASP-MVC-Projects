@@ -12,9 +12,11 @@ namespace SamplePB.Models
         public int EmailId { get; set; }
 
         public int PersonId { get; set; }
+
         [Display(Name = "Email Address")]
         [StringLength(40)]
         [DataType(DataType.EmailAddress)]
+
         public string Emails { get; set; }
 
         public DataSet StoreEmails { get; set; }

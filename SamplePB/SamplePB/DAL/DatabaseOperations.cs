@@ -32,7 +32,6 @@ namespace SamplePB.DAL
             }
             catch
             {
-
                 return result;
             }
             finally {
@@ -42,11 +41,10 @@ namespace SamplePB.DAL
 
         public string UpdateContactPerson(PersonViewModel model)
         {
-            SqlConnection con = null;
             string result = "";
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
+                var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
                 var cmd = new SqlCommand("uspContactPersonInfoUpdate", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@PersonID", model.PersonId);
                 cmd.Parameters.AddWithValue("@LastName", model.LastName);
@@ -58,14 +56,11 @@ namespace SamplePB.DAL
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result="";
             }
-            
         }
 
         public string DeleteContact(int personId)
@@ -80,11 +75,9 @@ namespace SamplePB.DAL
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
             finally
@@ -105,11 +98,9 @@ namespace SamplePB.DAL
                 ds = new DataSet();
                 da.Fill(ds);
                 return ds;
-
             }
             catch
             {
-
                 return ds;
             }
             finally
@@ -141,11 +132,9 @@ namespace SamplePB.DAL
                 da.TableMappings.Add("Table2", "tblEmails");
                 da.Fill(ds);
                 return ds;
-
             }
             catch
             {
-
                 return ds;
             }
             finally
@@ -170,7 +159,6 @@ namespace SamplePB.DAL
             }
             catch
             {
-
                 return result;
             }
             finally
@@ -192,11 +180,9 @@ namespace SamplePB.DAL
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
             finally
@@ -220,10 +206,9 @@ namespace SamplePB.DAL
                 ds = new DataSet();
                 da.Fill(ds);
                 return ds;
-                }
+             }
             catch
             {
-
                 return ds;
             }
             finally
@@ -232,8 +217,7 @@ namespace SamplePB.DAL
             }
         }
 
-       
-        public string ViewContactDetails(int personId)
+       public string ViewContactDetails(int personId)
         {
             SqlConnection con = null;
             string result = "";
@@ -245,11 +229,9 @@ namespace SamplePB.DAL
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
             finally
@@ -278,7 +260,6 @@ namespace SamplePB.DAL
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 return ds;
-
             }
             catch
             {
@@ -302,17 +283,12 @@ namespace SamplePB.DAL
                 cmd.Parameters.AddWithValue("@ContactNumber", model.ContactNumber);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
-                
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
-
-        
         }
         public string DeleteContactNumber(int contactId)
         {
@@ -326,11 +302,9 @@ namespace SamplePB.DAL
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
             finally
@@ -358,11 +332,9 @@ namespace SamplePB.DAL
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 return ds;
-
             }
             catch
             {
-
                 return ds;
             }
             finally
@@ -376,41 +348,34 @@ namespace SamplePB.DAL
             try
             {
                 var con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                var cmd = new SqlCommand("uspEmailUpdate", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                var cmd = new SqlCommand("uspEmailUpdate", con) {CommandType = CommandType.StoredProcedure};
                 cmd.Parameters.AddWithValue("@EmailID", model.EmailId);
                 cmd.Parameters.AddWithValue("@EmailAddress", model.Emails);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
-
-
         }
-        public string DeleteEmail(int emailId)
+        public string DeleteEmail(EmailsViewModel model)
         {
             SqlConnection con = null;
             string result = "";
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                var cmd = new SqlCommand("uspEmailDeletion", con) {CommandType = CommandType.StoredProcedure};
-                cmd.Parameters.AddWithValue("@EmailID", emailId);
+                var cmd = new SqlCommand("uspEmailDeletion", con) { CommandType = CommandType.StoredProcedure };
+                cmd.Parameters.AddWithValue("@EmailID", model.EmailId);
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
                 return result;
-
             }
             catch
             {
-
                 return result;
             }
             finally
