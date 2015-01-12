@@ -1,0 +1,43 @@
+﻿@model SamplePB.Models.EmailsViewModel
+
+@{
+    ViewBag.Title = "InsertPersonEmail";
+}
+
+<h2>Add Email</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="table-responsive">
+        <tr>
+            <th>Person ID</th>
+            <td>@Html.TextBoxFor(m => m.PersonId)</td>
+        </tr>
+        <tr>
+            <th>Email Address</th>
+            <td>@Html.TextBoxFor(m => m.Emails)</td>
+        </tr>
+        
+        <tr>
+            <th><input id="save" type="submit" value="Save" /></th>
+
+        </tr>
+    </table>
+
+}
+@{
+
+    if (ViewData["result"] != null)
+    {
+
+        ViewData["result"] = null;
+
+        <script type="text/javascript" language="javascript">
+
+            alert("Data saved Successfully");
+
+        </script>
+
+    }
+
+}

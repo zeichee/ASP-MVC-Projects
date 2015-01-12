@@ -1,0 +1,48 @@
+﻿@model SamplePB.Models.ContactNumbersViewModel
+
+@{
+    ViewBag.Title = "InsertPersonContactNumber";
+}
+
+<h2>InsertPersonContactNumber</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="table-responsive">
+        <tr>
+            <th>Person ID</th>
+            <td>@Html.TextBoxFor(m => m.PersonId)</td>
+        </tr>
+        <tr>
+            <th>Contact Type</th>
+            <td>@Html.TextBoxFor(m => m.SelectedContactType)</td>
+        </tr>
+             
+        <tr>
+            <th>Contact number</th>
+            <td>@Html.TextBoxFor(m => m.ContactNumber)</td>
+        </tr>
+
+        <tr>
+            <th><input id="save" type="submit" value="Save" /></th>
+
+        </tr>
+    </table>
+
+}
+@{
+
+    if (ViewData["result"] != null)
+    {
+
+        ViewData["result"] = null;
+
+        <script type="text/javascript" language="javascript">
+
+            alert("Data saved Successfully");
+
+        </script>
+
+    }
+
+}

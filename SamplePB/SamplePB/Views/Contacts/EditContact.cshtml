@@ -1,0 +1,71 @@
+﻿@model SamplePB.Models.PersonViewModel
+
+@{
+    ViewBag.Title = "Edit Contact";
+}
+
+<h2>Edit Contact</h2>
+
+<table class="table table-condensed">
+    <tr>
+        <td>
+            @Html.ActionLink("Show all contacts", "ShowAllContacts")
+        </td>
+    </tr>
+</table>
+<br/>
+
+@using (Html.BeginForm())
+{
+    
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <td colspan="2"> @Html.TextBoxFor(m => m.PersonId)</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td> @Html.TextBoxFor(m => m.LastName)</td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td> @Html.TextBoxFor(m => m.FirstName)</td>
+        </tr>
+        <tr>
+            <th>Middle Name</th>
+            <td> @Html.TextBoxFor(m => m.MiddleName)</td>
+        </tr>
+        <tr>
+            <th>Birth Date</th>
+            <td> @Html.TextBoxFor(m => m.BirthDate)</td>
+        </tr>
+        <tr>
+            <th>Home Address</th>
+            <td> @Html.TextBoxFor(m => m.HomeAddress)</td>
+        </tr>
+        <tr>
+            <th>Company</th>
+            <td> @Html.TextBoxFor(m => m.Company)</td>
+        </tr>
+        <tr>
+            <th colspan="2"><input type="submit" value="Save" class="btn btn-success"/></th>
+        </tr>
+    </table>
+  
+}
+@{
+
+    if (ViewData["resultUpdate"] != null)
+    {
+
+        ViewData["resultUpdate"] = null;
+
+        <script type="text/javascript" language="javascript">
+
+            alert("Data Updated Successfully");
+
+        </script>
+
+    }
+
+}

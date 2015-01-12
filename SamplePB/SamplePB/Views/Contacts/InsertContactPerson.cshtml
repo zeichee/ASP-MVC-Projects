@@ -1,0 +1,66 @@
+﻿@model SamplePB.Models.PersonViewModel
+
+@{
+    ViewBag.Title = "Insert Contact Person";
+}
+
+<h2>Insert Contact Person</h2>
+
+<table class="table table-condensed">
+    <tr>
+        <td>
+            @Html.ActionLink("Show all contacts","ShowAllContacts")
+        </td>
+    </tr>
+</table>
+@using (Html.BeginForm())
+{
+    <table class="table-responsive">
+        <tr>
+            <th>Last Name</th>
+            <td>@Html.TextBoxFor(m => m.LastName)</td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td>@Html.TextBoxFor(m => m.FirstName)</td>
+        </tr>
+        <tr>
+            <th>Middle Name</th>
+            <td>@Html.TextBoxFor(m => m.MiddleName)</td>
+        </tr>
+        <tr>
+            <th>Birth Date</th>
+            <td>@Html.TextBoxFor(m => m.BirthDate)</td>
+        </tr>
+        <tr>
+            <th>Home Address</th>
+            <td>@Html.TextBoxFor(m => m.HomeAddress)</td>
+        </tr>
+        <tr>
+            <th>Company</th>
+            <td>@Html.TextBoxFor(m => m.Company)</td>
+        </tr>
+        <tr>
+            <th><input id="save" type="submit" value="Save"/></th>
+            
+        </tr>
+    </table>
+   
+}
+@{
+
+    if (ViewData["result"] != null)
+    {
+
+        ViewData["result"] = null;
+
+        <script type="text/javascript" language="javascript">
+
+            alert("Data saved Successfully");
+
+        </script>
+
+    }
+
+}
+

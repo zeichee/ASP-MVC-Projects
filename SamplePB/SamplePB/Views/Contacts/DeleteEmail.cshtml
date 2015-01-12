@@ -1,0 +1,29 @@
+﻿@model SamplePB.Models.EmailsViewModel
+
+@{
+    ViewBag.Title = "DeleteEmail";
+}
+
+<h2>DeleteEmail</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <dl class="dl-horizontal">
+
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Emails)
+        </dt>
+
+    </dl>
+
+    <div class="form-actions no-color">
+        <input type="submit" name="Delete" value="Delete" class="btn btn-default" /> 
+        @Html.ActionLink("Back", "ShowContactDetails")
+    </div>
+}
