@@ -9,19 +9,15 @@
 
 <div>
     <h5>@Html.ActionLink("Back to List","ShowAllContacts")</h5>
+    <h5 >@Html.ActionLink("Add Email", "InsertPersonEmail", new { id = Model.PersonId })</h5>
+    <h5 >@Html.ActionLink("Add Contact Number", "InsertPersonContactNumber", new { id = Model.PersonId })</h5>
     <hr />@using (Html.BeginForm())
           {
               @Html.AntiForgeryToken()
-       
+               @Html.HiddenFor(m => m.PersonId)
     <dl class="dl-horizontal">
 
-        <dt>
-            ID
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PersonId)
-            @Html.HiddenFor(m => m.PersonId)
-        </dd>
+       
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>

@@ -22,6 +22,8 @@ namespace SamplePB.Models
         [StringLength(11)]
         [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "Contact number should contain only numbers")]
         public string ContactNumber { get; set; }
+
+
         public DataSet StoreContactNumbers { get; set; }
     }
 }

@@ -9,7 +9,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.TextBox("SearchString")
     <input type="submit" value="Search"/>
 
 }
@@ -40,8 +39,7 @@
                     <th width="10%">@Html.ActionLink("Details", "ShowContactDetails", new { id = personId })</th>
                     <th width="10%">@Html.ActionLink("Edit", "EditContact", new { id = personId })</th>
                     <th width="10%">@Html.ActionLink("Delete", "DeleteContact", new { id = personId })</th>
-                    <th width="10%">@Html.ActionLink("Add Email", "InsertPersonEmail", new { id = personId })</th>
-                    <th width="10%">@Html.ActionLink("Add Contact Number", "InsertPersonContactNumber", new { id = personId })</th>
+
                 </tr>
             </table>
         }

@@ -18,7 +18,7 @@ namespace SamplePB.Controllers
             var ds = objDb.SelectById(id);
             var pModel = new PersonViewModel
             {
-                PersonId = Convert.ToInt32(ds.Tables[0].Rows[0]["PersonID"].ToString()),
+                PersonId = id,
                 LastName = ds.Tables[0].Rows[0]["LastName"].ToString(),
                 FirstName = ds.Tables[0].Rows[0]["FirstName"].ToString(),
                 MiddleName = ds.Tables[0].Rows[0]["MiddleName"].ToString(),
@@ -45,7 +45,6 @@ namespace SamplePB.Controllers
                     new EmailsViewModel
                     {
                         EmailId = Convert.ToInt32(row["ID"]),
-                        PersonId = Convert.ToInt32(row["PersonID"]),
                         Emails = row["EmailAddress"].ToString()
                     });
             }
@@ -56,13 +55,6 @@ namespace SamplePB.Controllers
         public ActionResult InsertContactPerson()
         {
             return View();
-        }
-
-        public ActionResult SearchPerson(string searcher)
-        {
-            var obj = new DatabaseOperations();
-            var model = new SearchPerson {StoreAllData = obj.SearchContact(searcher)};
-            return RedirectToAction("SearchPerson", "Contacts");
         }
 
         [HttpPost]
@@ -83,6 +75,7 @@ namespace SamplePB.Controllers
 
         public ActionResult ShowAllContacts(PersonViewModel model)
         {
+            
             var obj = new DatabaseOperations();
             model.StoreAllData = obj.SelectAllContacts();
             return View(model);
@@ -273,20 +266,22 @@ namespace SamplePB.Controllers
         {
             var objDb = new DatabaseOperations();
             var ds = objDb.SelectByEmailId(id);
-            var model = new EmailsViewModel();
+            var model = new EmailsViewModel
+            {
+                EmailId = id,
+                PersonId = Convert.ToInt32(ds.Tables[0].Rows[0]["PersonID"].ToString()),
+                Emails = ds.Tables[0].Rows[0]["EmailAddress"].ToString()
+            };
 
-            model.EmailId = id;
-            model.Emails = ds.Tables[0].Rows[0]["EmailAddress"].ToString();
-            model.PersonId = Convert.ToInt32(ds.Tables[0].Rows[0]["PersonId"]);
             return View(model);
         }
 
         public ActionResult DeleteEmail(EmailsViewModel model)
         {
             var obj = new DatabaseOperations();
-
             obj.DeleteEmail(model);
-            return RedirectToAction("ShowContactDetails", "Contacts", new { id = model.PersonId });
+            ;
+            return RedirectToAction("ShowAllContacts", "Contacts", new { id = model.PersonId });
         } 
         #endregion
     }

@@ -11,10 +11,9 @@
    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(m=>m.EmailId)
+        @Html.HiddenFor(m=>m.PersonId)
         <table class=" table table-bordered">
             <tr><td>
-                    <h4>Personal Details</h4>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Emails, new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
