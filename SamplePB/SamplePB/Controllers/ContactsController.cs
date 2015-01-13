@@ -77,7 +77,7 @@ namespace SamplePB.Controllers
         {
             
             var obj = new DatabaseOperations();
-            model.StoreAllData = obj.SelectAllContacts();
+            model.StoreAllData = obj.SelectAllContacts(model);
             return View(model);
         }
 

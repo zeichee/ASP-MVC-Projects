@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages;
 using SamplePB.Models;
 
 namespace SamplePB.DAL
@@ -85,28 +86,58 @@ namespace SamplePB.DAL
                 if (con != null) con.Close();
             }
         }
-        public DataSet SelectAllContacts()
+        public DataSet SelectAllContacts(PersonViewModel model)
         {
-            
-            SqlConnection con = null;
-            DataSet ds = null;
-            try
+
+            if (model.SearchString.IsEmpty())
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
-                var cmd = new SqlCommand("uspContactList", con) {CommandType = CommandType.StoredProcedure};
-                con.Open();
-                var da = new SqlDataAdapter {SelectCommand = cmd};
-                ds = new DataSet();
-                da.Fill(ds);
-                return ds;
+                SqlConnection con = null;
+                DataSet ds = null;
+                try
+                {
+                    con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
+                    var cmd = new SqlCommand("uspContactList", con) {CommandType = CommandType.StoredProcedure};
+                    con.Open();
+                    var da = new SqlDataAdapter {SelectCommand = cmd};
+                    ds = new DataSet();
+                    da.Fill(ds);
+                    return ds;
+                }
+                catch
+                {
+                    return ds;
+                }
+                finally
+                {
+                    if (con != null) con.Close();
+                }
             }
-            catch
+            else
             {
-                return ds;
-            }
-            finally
-            {
-                if (con != null) con.Close();
+
+
+                SqlConnection con = null;
+                string result = "";
+                DataSet ds = null;
+                try
+                {
+                    con = new SqlConnection(ConfigurationManager.ConnectionStrings["ContactDbContext"].ToString());
+                    var cmd = new SqlCommand("uspContactSearching", con) {CommandType = CommandType.StoredProcedure};
+                    cmd.Parameters.AddWithValue("@Searcher", model.SearchString);
+                    con.Open();
+                    var da = new SqlDataAdapter {SelectCommand = cmd};
+                    ds = new DataSet();
+                    da.Fill(ds);
+                    return ds;
+                }
+                catch
+                {
+                    return ds;
+                }
+                finally
+                {
+                    if (con != null) con.Close();
+                }
             }
         }
 
