@@ -58,6 +58,13 @@ namespace SamplePB.Controllers
             return View();
         }
 
+        public ActionResult SearchPerson(string searcher)
+        {
+            var obj = new DatabaseOperations();
+            var model = new SearchPerson {StoreAllData = obj.SearchContact(searcher)};
+            return RedirectToAction("SearchPerson", "Contacts");
+        }
+
         [HttpPost]
         public ActionResult InsertContactPerson(PersonViewModel model)
         {

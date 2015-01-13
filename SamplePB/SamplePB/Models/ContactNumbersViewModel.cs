@@ -12,7 +12,9 @@ namespace SamplePB.Models
     {
         public int ContactId { get; set; }
         public int PersonId { get; set; }
+        [Display(Name = "Contact Type")]
         public string SelectedContactType { get; set; }
+
         public IEnumerable<SelectListItem> ContactTypes { get; set; }
 
         [Required]

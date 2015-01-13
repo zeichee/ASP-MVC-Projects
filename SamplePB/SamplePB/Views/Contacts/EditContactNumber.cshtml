@@ -1,42 +1,47 @@
 ﻿@model SamplePB.Models.ContactNumbersViewModel
 
 @{
-    ViewBag.Title = "EditContactNumber";
+    ViewBag.Title = "Edit Contact Number";
 }
 
-<h2>EditContactNumber</h2>
+<h2>Edit Contact Number</h2>
 
 @using (Html.BeginForm())
 {
+@Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m=>m.ContactId)
+        <table class=" table table-bordered">
+            <tr><td>
+                    <h4>Personal Details</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SelectedContactType, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SelectedContactType)
+                            @Html.ValidationMessageFor(model => model.SelectedContactType)
+                        </div>
+                    </div>
 
-<table class="table">
-
-    <tr>
-        @Html.HiddenFor(m => m.ContactId)
-        <th>ID</th>
-        <td colspan="2"> @Html.TextBoxFor(m => m.ContactId)</td>
-        
-    </tr>
-    <tr>
-        @Html.HiddenFor(m => m.PersonId)
-        <th>Person ID</th>
-        <td colspan="2"> @Html.TextBoxFor(m => m.PersonId)</td>
-        
-    </tr>
-    <tr>
-<tr>
-        <th>Contact Type</th>
-        <td> @Html.TextBoxFor(m => m.SelectedContactType)</td>
-    </tr>
-    <tr>
-        <th>Contact Number</th>
-        <td> @Html.TextBoxFor(m => m.ContactNumber)</td>
-    </tr>
-   
-    <tr>
-        <th colspan="2"><input type="submit" value="Save" class="btn btn-success" /></th>
-    </tr>
-
-</table>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactNumber, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ContactNumber)
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                        </div>
+                    </div>
+            </tr>
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
 
     }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

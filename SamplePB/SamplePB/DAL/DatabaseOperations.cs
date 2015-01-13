@@ -87,6 +87,7 @@ namespace SamplePB.DAL
         }
         public DataSet SelectAllContacts()
         {
+            
             SqlConnection con = null;
             DataSet ds = null;
             try
@@ -191,10 +192,9 @@ namespace SamplePB.DAL
             }
         }
 
-        public DataSet SearchContact(PersonViewModel model)
+        public DataSet SearchContact(string searcher)
         {
             SqlConnection con = null;
-            const string searcher = "";
             DataSet ds = null;
             try
             {

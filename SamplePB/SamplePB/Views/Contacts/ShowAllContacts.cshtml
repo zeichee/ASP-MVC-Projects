@@ -9,13 +9,13 @@
 
 @using (Html.BeginForm())
 {
-    @Html.TextBox("saercher")
-    <input type="submit" value="Search" />
+    @Html.TextBox("SearchString")
+    <input type="submit" value="Search"/>
+
 }
 <br/>
 <table class="table table-responsive">
     <tr>
-        
         <th>
             @Html.ActionLink("Add New Contact","InsertContactPerson")
         </th>
@@ -36,12 +36,12 @@
 
             <table class="table">
                 <tr>
-                    <td width="50%"> @lastName @firstName @middleName</td>
-                    <th width="20%">@Html.ActionLink("Details", "ShowContactDetails", new { id = personId })</th>
-                    <th width="20%">@Html.ActionLink("Edit", "EditContact", new { id = personId })</th>
-                    <th width="20%">@Html.ActionLink("Delete", "DeleteContact", new { id = personId })</th>
-                    <th width="20%">@Html.ActionLink("Add Email", "InsertPersonEmail", new { id = personId })</th>
-                    <th width="20%">@Html.ActionLink("Add Contact Number", "InsertPersonContactNumber", new { id = personId })</th>
+                    <td width="500%"> @lastName @firstName @middleName</td>
+                    <th width="10%">@Html.ActionLink("Details", "ShowContactDetails", new { id = personId })</th>
+                    <th width="10%">@Html.ActionLink("Edit", "EditContact", new { id = personId })</th>
+                    <th width="10%">@Html.ActionLink("Delete", "DeleteContact", new { id = personId })</th>
+                    <th width="10%">@Html.ActionLink("Add Email", "InsertPersonEmail", new { id = personId })</th>
+                    <th width="10%">@Html.ActionLink("Add Contact Number", "InsertPersonContactNumber", new { id = personId })</th>
                 </tr>
             </table>
         }

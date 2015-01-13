@@ -124,6 +124,7 @@
     <Compile Include="Models\EmailsViewModel.cs" />
     <Compile Include="Models\PersonViewModel.cs" />
     <Compile Include="Models\PhoneType.cs" />
+    <Compile Include="Models\SearchPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <Content Include="Views\Contacts\DeleteContactNumber.cshtml" />
     <Content Include="Views\Contacts\EditEmail.cshtml" />
     <Content Include="Views\Contacts\DeleteEmail.cshtml" />
+    <Content Include="Views\Contacts\SearchPerson.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

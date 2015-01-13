@@ -8,36 +8,33 @@
 
 @using (Html.BeginForm())
 {
-    <table class="table-responsive">
-        <tr>
-            <th>Person ID</th>
-            <td>@Html.TextBoxFor(m => m.PersonId)</td>
-        </tr>
-        <tr>
-            <th>Email Address</th>
-            <td>@Html.TextBoxFor(m => m.Emails)</td>
-        </tr>
-        
-        <tr>
-            <th><input id="save" type="submit" value="Save" /></th>
+   <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m=>m.EmailId)
+        <table class=" table table-bordered">
+            <tr><td>
+                    <h4>Personal Details</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Emails, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Emails)
+                            @Html.ValidationMessageFor(model => model.Emails)
+                        </div>
+                    </div>
 
-        </tr>
-    </table>
+                  
+            </tr>
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
 
 }
-@{
-
-    if (ViewData["result"] != null)
-    {
-
-        ViewData["result"] = null;
-
-        <script type="text/javascript" language="javascript">
-
-            alert("Data saved Successfully");
-
-        </script>
-
-    }
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

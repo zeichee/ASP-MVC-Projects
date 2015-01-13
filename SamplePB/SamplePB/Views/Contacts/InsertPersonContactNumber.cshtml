@@ -1,30 +1,45 @@
 ﻿@model SamplePB.Models.ContactNumbersViewModel
 
 @{
-    ViewBag.Title = "InsertPersonContactNumber";
+    ViewBag.Title = "Insert Person Contact Number";
 }
 
-<h2>InsertPersonContactNumber</h2>
+<h2>Insert Contact Number</h2>
 
 @using (Html.BeginForm())
 {
-    <table class="table-responsive">
-        <tr>
-            <th>Person ID</th>
-            <td>@Html.TextBoxFor(m => m.PersonId)</td>
-        </tr>
-        <tr>
-            <th>Contact Type</th>
-            <td>@Html.TextBoxFor(m => m.SelectedContactType)</td>
-        </tr>
-             
-        <tr>
-            <th>Contact number</th>
-            <td>@Html.TextBoxFor(m => m.ContactNumber)</td>
-        </tr>
-        <tr>
-            <th><input id="save" type="submit" value="Save" /></th>
+   <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m=>m.ContactId)
+        <table class=" table table-bordered">
+            <tr><td>
+                    <h4>Personal Details</h4>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SelectedContactType, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SelectedContactType)
+                            @Html.ValidationMessageFor(model => model.SelectedContactType)
+                        </div>
+                    </div>
 
-        </tr>
-    </table>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactNumber, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ContactNumber)
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                        </div>
+                    </div>
+            </tr>
+        </table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
